@@ -13,6 +13,10 @@ class AuthService {
     return token;
   }
 
+  Future<void> signup(SignupDto dto) async {
+    await api.post('/users/add', data: dto.toJson());
+  }
+
   Future<String?> getToken() async {
     return await storage.read(key: 'token');
   }
