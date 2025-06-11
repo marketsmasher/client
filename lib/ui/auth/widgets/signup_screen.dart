@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../view_models/signup_model.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -50,7 +52,9 @@ class _SignupScreenState extends State<SignupScreen> {
                   SizedBox(height: 80),
                   Text(
                     'Добро пожаловать!',
-                    style: Theme.of(context).textTheme.headlineMedium,
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   SizedBox(height: 67),
                   TextFormField(
@@ -146,10 +150,10 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   SizedBox(height: 44),
                   FilledButton(
-                    onPressed: _handleSignup,// TODO: add SignUp logic
+                    onPressed: _handleSignup,
                     style: FilledButton.styleFrom(
                       backgroundColor: Color(0xFF4285f4),
-                      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 71),
+                      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 49),
                     ),
                     child: Text(
                       'Регистрация',
@@ -158,6 +162,23 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                     ),
                   ),
+                  Spacer(),
+                  RichText(
+                      text: TextSpan(
+                          text: 'Уже работали с нами? ',
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                          children: [
+                            TextSpan(
+                                text: 'Вход',
+                                style: const TextStyle(color: Colors.blue),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () => context.go('/')
+                            ),
+                          ]
+                      )
+                  )
                 ],
               ),
             ),

@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../view_models/login_model.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -41,7 +43,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 80),
                   Text(
                     'С возвращением!',
-                    style: Theme.of(context).textTheme.headlineMedium,
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   SizedBox(height: 67),
                   TextFormField(
@@ -80,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   SizedBox(height: 44),
                   FilledButton(
-                    onPressed: _handleLogin,// TODO: add login logic
+                    onPressed: _handleLogin,
                     style: FilledButton.styleFrom(
                       backgroundColor: Color(0xFF4285f4),
                       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 71),
@@ -92,6 +96,23 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
+                  Spacer(),
+                  RichText(
+                    text: TextSpan(
+                      text: 'Впервые с нами? ',
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.w600,
+                        ),
+                      children: [
+                        TextSpan(
+                            text: 'Регистрация',
+                            style: const TextStyle(color: Colors.blue),
+                            recognizer: TapGestureRecognizer()
+                            ..onTap = () => context.go('/signup')
+                        ),
+                      ]
+                    )
+                  )
                 ],
               ),
             ),
