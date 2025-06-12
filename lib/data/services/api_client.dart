@@ -13,4 +13,12 @@ final api = Dio(options)
         return handler.next(options);
       },
     ),
-  );
+  )
+  ..interceptors.add(LogInterceptor(
+    request: true,
+    requestBody: true,
+    responseBody: true,
+    responseHeader: false,
+    error: true,
+    requestHeader: true,
+  ));
