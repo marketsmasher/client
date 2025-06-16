@@ -1,7 +1,21 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+
 import '../view_models/signup_model.dart';
+import '../../../data/services/auth_service.dart';
+
+class SignupScreenWrapper extends StatelessWidget {
+  const SignupScreenWrapper({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Provider<SignupModel>(
+      create: (_) => SignupModel(authService: context.read<AuthService>()),
+      child: const SignupScreen(),
+    );
+  }
+}
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -25,7 +39,10 @@ class _SignupScreenState extends State<SignupScreen> {
     final passwordCopy = _passwordCopyController.text.trim();
     final publicKey = _publicKeyController.text.trim();
     final privateKey = _privateKeyController.text.trim();
-    await signup(username, publicKey,privateKey, password);
+    if (password == passwordCopy) {
+      final model = context.read<SignupModel>();
+      await model.signup(username, publicKey, privateKey, password);
+    }
   }
 
   @override

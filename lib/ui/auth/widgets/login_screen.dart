@@ -1,7 +1,20 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import '../../../data/services/auth_service.dart';
 import '../view_models/login_model.dart';
+
+class LoginScreenWrapper extends StatelessWidget {
+  const LoginScreenWrapper({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Provider<LoginModel>(
+      create: (_) => LoginModel(authService: context.read<AuthService>()),
+      child: const LoginScreen(),
+    );
+  }
+}
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -15,11 +28,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-  // TODO: move to login_model and add token return
+
   Future<void> _handleLogin() async {
+    final model = context.read<LoginModel>();
     final username = _usernameController.text.trim();
     final password = _passwordController.text.trim();
-    await login(username, password);
+    await model.login(username, password);
   }
 
   @override
