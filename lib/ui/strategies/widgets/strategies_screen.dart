@@ -1,5 +1,6 @@
 import 'package:client/ui/core/ui/navigation_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../../../data/models/strategies_dtos.dart';
 import '../view_models/strategies_model.dart';
@@ -42,8 +43,42 @@ class _StrategiesScreenState extends State<StrategiesScreen> {
                 child: ListView.builder(
                   itemCount: strategies?.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final item = asyncSnapshot.data?[index];
-                    return ListTile(title: Text(item?.publicName ?? 'Пусто'));
+                    final item = strategies?[index];
+                    return Card(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ListTile(
+                                title: Text(item?.publicName ?? 'Пусто'),
+                                subtitle: Text(item?.description ?? ''),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(25),
+                              // TODO: add subscription functionality
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 70,
+                                    child: TextField(
+                                      keyboardType: TextInputType.number,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.digitsOnly],
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Switch(
+                                    value: false,
+                                    onChanged: (_) => true,
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
                   },
                 )
             );
