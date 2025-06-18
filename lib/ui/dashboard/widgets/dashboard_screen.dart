@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../view_models/dashboard_model.dart';
 import 'package:provider/provider.dart';
 import '../../../data/services/auth_service.dart';
+import '../../core/ui/navigation_widget.dart';
 
 class DashboardScreenWrapper extends StatelessWidget {
   const DashboardScreenWrapper({super.key});
@@ -30,6 +31,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: Navigation(),
       body: SafeArea(
         child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 33),
