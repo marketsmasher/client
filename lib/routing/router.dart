@@ -20,8 +20,12 @@ GoRouter createRouter(AuthService authService) {
     routes: [
       GoRoute(path: '/', builder: (context, state) => LoginScreenWrapper()),
       GoRoute(path: '/signup', builder: (context, state) => SignupScreenWrapper()),
-      GoRoute(path: '/dashboard', builder: (context, state) => DashboardScreenWrapper()),
-      GoRoute(path: '/strategies', builder: (context, state) => StrategiesScreenWrapper()),
+      GoRoute(path: '/dashboard', pageBuilder: (context, state) =>
+      const NoTransitionPage(child: DashboardScreenWrapper()),
+      ),
+      GoRoute(path: '/strategies', pageBuilder: (context, state) =>
+      const NoTransitionPage(child: StrategiesScreenWrapper()),
+      ),
     ],
   );
 }
